@@ -10,7 +10,6 @@ const addAsCallback = (a: number, b: number, c: number): number => {
 const arr = [1, 4, 5];
 const newArr = arr.map((item: number) => item * item);
 
-
 const person: {
     name: string,
     balance: number,
