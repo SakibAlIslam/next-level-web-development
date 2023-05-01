@@ -35,5 +35,3 @@ const midLevelDeveloper: NextLevelDeveloper = {
     leaderShip: 'Team Lead',
     level: Level.mid
 }
-
-console.log('midLevelDeveloper: ', midLevelDeveloper);
