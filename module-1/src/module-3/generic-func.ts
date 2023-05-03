@@ -43,4 +43,3 @@ const myInfo = {
   };
 
 const res = addMeInCrushMind(myInfo);
-console.log(res.age)
