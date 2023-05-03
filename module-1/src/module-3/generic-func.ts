@@ -32,8 +32,8 @@ const tupleCall = myTuple<number, Array<string>>(9, ["hello"]);
 
 const addMeInCrushMind = <T>(myInfo: T): T => {
   const genCrush = "kate";
-  const myNewData = { genCrush, ...myInfo };
-  return myNewData;
+  const myNewData = { genCrush, ...myInfo }; //compile in run time
+  return myNewData; //check myNewData before the compilation, so without generic it will be got only the genCrush as object key: value
 };
 
 const myInfo = {
