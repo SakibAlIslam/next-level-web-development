@@ -35,3 +35,36 @@ const myInfoCon: MandatoryInterface = {
 };
 
 const resCon = addMeInCrushMindCon<MandatoryInterface>(myInfoCon);
+
+
+
+
+//3.7
+
+type PersonTypeCon = {
+    name: string;
+    age: number;
+    address: string;
+}
+
+type newType = 'name' | 'age' | 'address';
+
+type newTypeUsingKeyOf = keyof PersonTypeCon;
+
+//normal
+const normalTypeAlias: newType = 'name';
+//keyof
+const newKeyofType: newTypeUsingKeyOf = 'address'
+
+
+//function key of usage
+const getPropertyCon = <X, Y extends keyof X>(obj: X, key: Y) => { // for extending X, now Y = 'name' | 'key'
+    return obj[key]
+}
+
+const propertyCon = getPropertyCon({
+    name: 'Mr. X',
+    age: 100
+}, 'name');
+
+console.log(propertyCon);
