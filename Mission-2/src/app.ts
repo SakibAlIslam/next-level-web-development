@@ -15,13 +15,13 @@ app.get("/", (req: Request, res: Response, next: NextFunction) => {
   //inserting a test data in mongodb
 
   /*
-    step1: Interface
-    step2: Schema
-    step3: Model
-    step4: Query
+    step1: Interface - done
+    step2: Schema - done
+    step3: Model - done
+    step4: Query on Model - done
     */
 
-  //creating an interface
+  //* creating an interface
   interface IUser {
     name: {
       firstName: string;
@@ -41,7 +41,7 @@ app.get("/", (req: Request, res: Response, next: NextFunction) => {
     permanentAddress: string;
   }
 
-  //creating schema using Interface:
+  //* creating schema using Interface:
   const userSchema = new Schema<IUser>({
     name: {
       firstName: {
@@ -70,7 +70,35 @@ app.get("/", (req: Request, res: Response, next: NextFunction) => {
     permanentAddress: { type: String, required: true },
   });
 
-  res.send("Running in browser");
+  //* creating a user model using interface type and userSchema
+  const UserModel = model<IUser>("User", userSchema);
+
+  //* creating model instance and save to the mongo db asynchornously
+  const createUserToDB = async () => {
+    const user = new UserModel({
+      name: {
+        firstName: "Md Sakib",
+        middleName: "Al",
+        lastName: "Islam",
+      },
+      age: 27,
+      id: "109029",
+      role: "student",
+      password: "sakibABC",
+      dateOfBirth: "12/03/1996",
+      gender: "male",
+      contactNo: "01792837456",
+      emergencyConNo: "01972876863",
+      presentAddress: "Dhaka",
+      permanentAddress: "Jannat - in sha ALLAH",
+    });
+
+    await user.save();
+  };
+
+  //* calling createUserToDB async function.
+  createUserToDB();
+  res.send("Running in browser and user saved in the DB");
 });
 
 export default app;
