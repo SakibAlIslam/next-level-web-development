@@ -9,11 +9,20 @@ export const createUserToDB = async (payload: IUser): Promise<IUser> => {
   return user;
 };
 
-
-export const getUsersFromDB = async () : Promise<IUser[]> => {
+export const getUsersFromDB = async (): Promise<IUser[]> => {
   const users = await UserModel.find();
   return users;
-}
+};
+
+//get find one
+export const getUserByIdFromDB = async (
+  payload: string
+): Promise<IUser | null> => {
+  //fill filtering
+  const user = await UserModel.findOne({ id: payload }, { name: 1, contactNo: 1, age: 1 });
+  console.log("user: ", user);
+  return user;
+};
 
 //data
 // {
