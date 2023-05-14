@@ -3,9 +3,13 @@ import { UserModel } from "./user.model";
 
 export const createUserToDB = async (payload: IUser): Promise<IUser> => {
   //intance of userModel class
-  const user = new UserModel(payload);
 
-  await user.save();
+  //creating a new user...
+  const user = new UserModel(payload); //UserModel -> class, user hocche instance
+
+  await user.save(); //built in intance method cause user is an instance
+  //custom instance methods.....
+  console.log(user.fullName());
   return user;
 };
 
@@ -19,10 +23,45 @@ export const getUserByIdFromDB = async (
   payload: string
 ): Promise<IUser | null> => {
   //fill filtering
-  const user = await UserModel.findOne({ id: payload }, { name: 1, contactNo: 1, age: 1 });
-  console.log("user: ", user);
+  const user = await UserModel.findOne(
+    { id: payload },
+    { name: 1, contactNo: 1, age: 1 }
+  );
   return user;
 };
+
+export const getAllAdminFromDB = async () => {
+  //custom static
+  const admins = await UserModel.getAdminUsers();
+  console.log('admins: ', admins)
+  return admins;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //data
 // {

@@ -1,10 +1,13 @@
 import express from "express";
-import { getUserById, getUsers, userController } from "./user.controller";
+import { getAllAdminUsers, getUserById, getUsers, userController } from "./user.controller";
 
 const router = express.Router();
 
+
+
 router.get('/', getUsers);
+router.get('/admins', getAllAdminUsers);
+router.get('/single-user/:id', getUserById);
 router.post('/create-user', userController);
-router.get('/single-user/:id', getUserById)
 
 export default router;

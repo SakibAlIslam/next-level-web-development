@@ -1,7 +1,9 @@
-import { Schema, model } from "mongoose";
-import { IUser } from "./user.interface";
+import { Schema, model, Model } from "mongoose";
+import { IUser, IUserMethods, UserModelCustom } from "./user.interface";
 
-const userSchema = new Schema<IUser>({
+// type UserCustomModel = Model<IUser, {}, IUserMethods>;
+
+const userSchema = new Schema<IUser, UserModelCustom, IUserMethods>({
   name: {
     firstName: {
       type: String,
@@ -28,5 +30,21 @@ const userSchema = new Schema<IUser>({
   presentAddress: { type: String, required: true },
   permanentAddress: { type: String, required: true },
 });
+//instance method creation
+userSchema.method("fullName", function fullName() {
+  return this?.name?.firstName + " " + this?.name?.lastName;
+});
+//static method creation
+userSchema.static(
+  "getAdminUsers",
+  async function getAdminUsers() {
+    // here this. means this class....
+    const admins = await this.find({role: 'admin'});
+    return admins
+  }
+);
+export const UserModel = model<IUser, UserModelCustom>("User", userSchema);
 
-export const UserModel = model<IUser>("User", userSchema);
+//instance method --> instance er method
+
+// class -> instance + method = instance methods
